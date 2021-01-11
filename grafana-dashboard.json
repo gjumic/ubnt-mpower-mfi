@@ -12,12 +12,12 @@
       }
     ]
   },
-  "description": "Dashboard for Ubiquiti mPower mFi 6-Port and 3-Port Power Switches",
+  "description": "",
   "editable": true,
   "gnetId": 10292,
   "graphTooltip": 1,
   "id": 3,
-  "iteration": 1610305920255,
+  "iteration": 1610367263487,
   "links": [],
   "panels": [
     {
@@ -120,6 +120,8 @@
               "value": "0"
             }
           ],
+          "max": 1,
+          "min": 0,
           "thresholds": {
             "mode": "absolute",
             "steps": [
@@ -166,7 +168,7 @@
           "measurement": "$SmartPlug",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT \"sensors_0_relay\" AS \"Port 1\" FROM \"$SmartPlug\" WHERE $timeFilter",
+          "query": "SELECT \n\"sensors_0_relay\" AS \"Port 1 Relay\", \n\"sensors_1_relay\" AS \"Port 2 Relay\", \n\"sensors_2_relay\" AS \"Port 3 Relay\"\nFROM /^$SmartPlug$/ WHERE $timeFilter",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series",
@@ -194,7 +196,7 @@
           "measurement": "$SmartPlug",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT \"sensors_1_relay\" AS \"Port 2\" FROM \"$SmartPlug\" WHERE $timeFilter",
+          "query": "SELECT \n\"sensors_3_relay\" AS \"Port 4 Relay\", \n\"sensors_4_relay\" AS \"Port 5 Relay\", \n\"sensors_5_relay\" AS \"Port 6 Relay\" \nFROM /^$SmartPlug$/ WHERE $timeFilter",
           "rawQuery": true,
           "refId": "B",
           "resultFormat": "time_series",
@@ -209,118 +211,6 @@
               {
                 "params": [
                   "Port 2"
-                ],
-                "type": "alias"
-              }
-            ]
-          ],
-          "tags": []
-        },
-        {
-          "alias": "$col",
-          "groupBy": [],
-          "measurement": "$SmartPlug",
-          "orderByTime": "ASC",
-          "policy": "default",
-          "query": "SELECT \"sensors_2_relay\" AS \"Port 3\" FROM \"$SmartPlug\" WHERE $timeFilter",
-          "rawQuery": true,
-          "refId": "C",
-          "resultFormat": "time_series",
-          "select": [
-            [
-              {
-                "params": [
-                  "sensors_2_power"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [
-                  "Port 3"
-                ],
-                "type": "alias"
-              }
-            ]
-          ],
-          "tags": []
-        },
-        {
-          "alias": "$col",
-          "groupBy": [],
-          "measurement": "$SmartPlug",
-          "orderByTime": "ASC",
-          "policy": "default",
-          "query": "SELECT \"sensors_3_relay\" AS \"Port 1\" FROM \"$SmartPlug\" WHERE $timeFilter",
-          "rawQuery": true,
-          "refId": "D",
-          "resultFormat": "time_series",
-          "select": [
-            [
-              {
-                "params": [
-                  "sensors_0_power"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [
-                  "Port 1"
-                ],
-                "type": "alias"
-              }
-            ]
-          ],
-          "tags": []
-        },
-        {
-          "alias": "$col",
-          "groupBy": [],
-          "measurement": "$SmartPlug",
-          "orderByTime": "ASC",
-          "policy": "default",
-          "query": "SELECT \"sensors_4_relay\" AS \"Port 5\" FROM \"$SmartPlug\" WHERE $timeFilter",
-          "rawQuery": true,
-          "refId": "E",
-          "resultFormat": "time_series",
-          "select": [
-            [
-              {
-                "params": [
-                  "sensors_0_power"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [
-                  "Port 1"
-                ],
-                "type": "alias"
-              }
-            ]
-          ],
-          "tags": []
-        },
-        {
-          "alias": "$col",
-          "groupBy": [],
-          "measurement": "$SmartPlug",
-          "orderByTime": "ASC",
-          "policy": "default",
-          "query": "SELECT \"sensors_5_relay\" AS \"Port 6\" FROM \"$SmartPlug\" WHERE $timeFilter",
-          "rawQuery": true,
-          "refId": "F",
-          "resultFormat": "time_series",
-          "select": [
-            [
-              {
-                "params": [
-                  "sensors_0_power"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [
-                  "Port 1"
                 ],
                 "type": "alias"
               }
@@ -345,7 +235,7 @@
           ],
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT \"emeter_get_realtime_power\" FROM \"$SmartPlug\" WHERE $timeFilter AND  \"emeter_get_realtime_power\" > 1",
+          "query": "SELECT \"emeter_get_realtime_power\" AS \"Relay\" FROM /^$SmartPlug$/ WHERE $timeFilter AND  \"emeter_get_realtime_power\" > 1",
           "rawQuery": true,
           "refId": "G",
           "resultFormat": "time_series",
@@ -411,7 +301,7 @@
         "orientation": "horizontal",
         "reduceOptions": {
           "calcs": [
-            "last"
+            "lastNotNull"
           ],
           "fields": "",
           "values": false
@@ -422,7 +312,7 @@
       "pluginVersion": "7.3.6",
       "targets": [
         {
-          "alias": "$col",
+          "alias": "",
           "groupBy": [
             {
               "params": [
@@ -441,7 +331,7 @@
           "measurement": "exec_mfi6",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT \"sensors_0_voltage\" AS \"Port 1\" FROM \"$SmartPlug\" WHERE $timeFilter",
+          "query": "SELECT \n\"sensors_0_voltage\" AS \"Port 1 Voltage\", \n\"sensors_1_voltage\" AS \"Port 2 Voltage\", \n\"sensors_2_voltage\" AS \"Port 3 Voltage\"\nFROM /^$SmartPlug$/ WHERE $timeFilter",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series",
@@ -558,7 +448,6 @@
           "tags": []
         },
         {
-          "alias": "$col",
           "groupBy": [
             {
               "params": [
@@ -573,11 +462,9 @@
               "type": "fill"
             }
           ],
-          "hide": false,
-          "measurement": "exec_mfi6",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT \"sensors_1_voltage\" AS \"Port 2\" FROM \"$SmartPlug\" WHERE $timeFilter",
+          "query": "SELECT \n\"sensors_3_voltage\" AS \"Port 4 Voltage\", \n\"sensors_4_voltage\" AS \"Port 5 Voltage\", \n\"sensors_5_voltage\" AS \"Port 6 Voltage\" \nFROM /^$SmartPlug$/ WHERE $timeFilter",
           "rawQuery": true,
           "refId": "B",
           "resultFormat": "time_series",
@@ -585,653 +472,13 @@
             [
               {
                 "params": [
-                  "sensors_0_voltage"
+                  "value"
                 ],
                 "type": "field"
               },
               {
                 "params": [],
                 "type": "mean"
-              },
-              {
-                "params": [
-                  "$mFi6_PORT1"
-                ],
-                "type": "alias"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "sensors_1_voltage"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              },
-              {
-                "params": [
-                  "$mFi6_PORT2"
-                ],
-                "type": "alias"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "sensors_2_voltage"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              },
-              {
-                "params": [
-                  "$mFi6_PORT3"
-                ],
-                "type": "alias"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "sensors_3_voltage"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              },
-              {
-                "params": [
-                  "$mFi6_PORT4"
-                ],
-                "type": "alias"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "sensors_4_voltage"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              },
-              {
-                "params": [
-                  "$mFi6_PORT5"
-                ],
-                "type": "alias"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "sensors_5_voltage"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              },
-              {
-                "params": [
-                  "$mFi6_PORT6"
-                ],
-                "type": "alias"
-              }
-            ]
-          ],
-          "tags": []
-        },
-        {
-          "alias": "$col",
-          "groupBy": [
-            {
-              "params": [
-                "$__interval"
-              ],
-              "type": "time"
-            },
-            {
-              "params": [
-                "null"
-              ],
-              "type": "fill"
-            }
-          ],
-          "hide": false,
-          "measurement": "exec_mfi6",
-          "orderByTime": "ASC",
-          "policy": "default",
-          "query": "SELECT \"sensors_2_voltage\" AS \"Port 3\" FROM \"$SmartPlug\" WHERE $timeFilter",
-          "rawQuery": true,
-          "refId": "D",
-          "resultFormat": "time_series",
-          "select": [
-            [
-              {
-                "params": [
-                  "sensors_0_voltage"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              },
-              {
-                "params": [
-                  "$mFi6_PORT1"
-                ],
-                "type": "alias"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "sensors_1_voltage"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              },
-              {
-                "params": [
-                  "$mFi6_PORT2"
-                ],
-                "type": "alias"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "sensors_2_voltage"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              },
-              {
-                "params": [
-                  "$mFi6_PORT3"
-                ],
-                "type": "alias"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "sensors_3_voltage"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              },
-              {
-                "params": [
-                  "$mFi6_PORT4"
-                ],
-                "type": "alias"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "sensors_4_voltage"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              },
-              {
-                "params": [
-                  "$mFi6_PORT5"
-                ],
-                "type": "alias"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "sensors_5_voltage"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              },
-              {
-                "params": [
-                  "$mFi6_PORT6"
-                ],
-                "type": "alias"
-              }
-            ]
-          ],
-          "tags": []
-        },
-        {
-          "alias": "$col",
-          "groupBy": [
-            {
-              "params": [
-                "$__interval"
-              ],
-              "type": "time"
-            },
-            {
-              "params": [
-                "null"
-              ],
-              "type": "fill"
-            }
-          ],
-          "hide": false,
-          "measurement": "exec_mfi6",
-          "orderByTime": "ASC",
-          "policy": "default",
-          "query": "SELECT \"sensors_3_voltage\" AS \"Port 4\" FROM \"$SmartPlug\" WHERE $timeFilter",
-          "rawQuery": true,
-          "refId": "E",
-          "resultFormat": "time_series",
-          "select": [
-            [
-              {
-                "params": [
-                  "sensors_0_voltage"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              },
-              {
-                "params": [
-                  "$mFi6_PORT1"
-                ],
-                "type": "alias"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "sensors_1_voltage"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              },
-              {
-                "params": [
-                  "$mFi6_PORT2"
-                ],
-                "type": "alias"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "sensors_2_voltage"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              },
-              {
-                "params": [
-                  "$mFi6_PORT3"
-                ],
-                "type": "alias"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "sensors_3_voltage"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              },
-              {
-                "params": [
-                  "$mFi6_PORT4"
-                ],
-                "type": "alias"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "sensors_4_voltage"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              },
-              {
-                "params": [
-                  "$mFi6_PORT5"
-                ],
-                "type": "alias"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "sensors_5_voltage"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              },
-              {
-                "params": [
-                  "$mFi6_PORT6"
-                ],
-                "type": "alias"
-              }
-            ]
-          ],
-          "tags": []
-        },
-        {
-          "alias": "$col",
-          "groupBy": [
-            {
-              "params": [
-                "$__interval"
-              ],
-              "type": "time"
-            },
-            {
-              "params": [
-                "null"
-              ],
-              "type": "fill"
-            }
-          ],
-          "hide": false,
-          "measurement": "exec_mfi6",
-          "orderByTime": "ASC",
-          "policy": "default",
-          "query": "SELECT \"sensors_4_voltage\" AS \"Port 5\" FROM \"$SmartPlug\" WHERE $timeFilter",
-          "rawQuery": true,
-          "refId": "G",
-          "resultFormat": "time_series",
-          "select": [
-            [
-              {
-                "params": [
-                  "sensors_0_voltage"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              },
-              {
-                "params": [
-                  "$mFi6_PORT1"
-                ],
-                "type": "alias"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "sensors_1_voltage"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              },
-              {
-                "params": [
-                  "$mFi6_PORT2"
-                ],
-                "type": "alias"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "sensors_2_voltage"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              },
-              {
-                "params": [
-                  "$mFi6_PORT3"
-                ],
-                "type": "alias"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "sensors_3_voltage"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              },
-              {
-                "params": [
-                  "$mFi6_PORT4"
-                ],
-                "type": "alias"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "sensors_4_voltage"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              },
-              {
-                "params": [
-                  "$mFi6_PORT5"
-                ],
-                "type": "alias"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "sensors_5_voltage"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              },
-              {
-                "params": [
-                  "$mFi6_PORT6"
-                ],
-                "type": "alias"
-              }
-            ]
-          ],
-          "tags": []
-        },
-        {
-          "alias": "$col",
-          "groupBy": [
-            {
-              "params": [
-                "$__interval"
-              ],
-              "type": "time"
-            },
-            {
-              "params": [
-                "null"
-              ],
-              "type": "fill"
-            }
-          ],
-          "hide": false,
-          "measurement": "exec_mfi6",
-          "orderByTime": "ASC",
-          "policy": "default",
-          "query": "SELECT \"sensors_5_voltage\" AS \"Port 6\" FROM \"$SmartPlug\" WHERE $timeFilter",
-          "rawQuery": true,
-          "refId": "C",
-          "resultFormat": "time_series",
-          "select": [
-            [
-              {
-                "params": [
-                  "sensors_0_voltage"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              },
-              {
-                "params": [
-                  "$mFi6_PORT1"
-                ],
-                "type": "alias"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "sensors_1_voltage"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              },
-              {
-                "params": [
-                  "$mFi6_PORT2"
-                ],
-                "type": "alias"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "sensors_2_voltage"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              },
-              {
-                "params": [
-                  "$mFi6_PORT3"
-                ],
-                "type": "alias"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "sensors_3_voltage"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              },
-              {
-                "params": [
-                  "$mFi6_PORT4"
-                ],
-                "type": "alias"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "sensors_4_voltage"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              },
-              {
-                "params": [
-                  "$mFi6_PORT5"
-                ],
-                "type": "alias"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "sensors_5_voltage"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              },
-              {
-                "params": [
-                  "$mFi6_PORT6"
-                ],
-                "type": "alias"
               }
             ]
           ],
@@ -1255,7 +502,7 @@
           ],
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT \"emeter_get_realtime_voltage\" FROM \"$SmartPlug\" WHERE $timeFilter",
+          "query": "SELECT \"emeter_get_realtime_voltage\" AS  \"Voltage\" FROM /^$SmartPlug$/ WHERE $timeFilter\n",
           "rawQuery": true,
           "refId": "F",
           "resultFormat": "time_series",
@@ -1308,7 +555,20 @@
           },
           "unit": "watt"
         },
-        "overrides": []
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byRegexp",
+              "options": "/exec_/"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "${__field.displayName}"
+              }
+            ]
+          }
+        ]
       },
       "gridPos": {
         "h": 8,
@@ -1334,12 +594,12 @@
       "pluginVersion": "7.3.6",
       "targets": [
         {
-          "alias": "$col",
+          "alias": "",
           "groupBy": [],
           "measurement": "$SmartPlug",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT \"sensors_0_power\" AS \"Port 1\" FROM \"$SmartPlug\" WHERE $timeFilter",
+          "query": "SELECT \n\"sensors_0_power\" AS \"Port 1 Power\", \n\"sensors_1_power\" AS \"Port 2 Power\", \n\"sensors_2_power\" AS \"Port 3 Power\"\nFROM /^$SmartPlug$/ WHERE $timeFilter",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series",
@@ -1362,12 +622,12 @@
           "tags": []
         },
         {
-          "alias": "$col",
+          "alias": "",
           "groupBy": [],
           "measurement": "$SmartPlug",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT \"sensors_1_power\" AS \"Port 2\" FROM \"$SmartPlug\" WHERE $timeFilter",
+          "query": "SELECT \n\"sensors_3_power\" AS \"Port 4 Power \", \n\"sensors_4_power\" AS \"Port 5 Power \", \n\"sensors_5_power\" AS \"Port 6 Power \" \nFROM /^$SmartPlug$/ WHERE $timeFilter",
           "rawQuery": true,
           "refId": "B",
           "resultFormat": "time_series",
@@ -1382,118 +642,6 @@
               {
                 "params": [
                   "Port 2"
-                ],
-                "type": "alias"
-              }
-            ]
-          ],
-          "tags": []
-        },
-        {
-          "alias": "$col",
-          "groupBy": [],
-          "measurement": "$SmartPlug",
-          "orderByTime": "ASC",
-          "policy": "default",
-          "query": "SELECT \"sensors_2_power\" AS \"Port 3\" FROM \"$SmartPlug\" WHERE $timeFilter",
-          "rawQuery": true,
-          "refId": "C",
-          "resultFormat": "time_series",
-          "select": [
-            [
-              {
-                "params": [
-                  "sensors_2_power"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [
-                  "Port 3"
-                ],
-                "type": "alias"
-              }
-            ]
-          ],
-          "tags": []
-        },
-        {
-          "alias": "$col",
-          "groupBy": [],
-          "measurement": "$SmartPlug",
-          "orderByTime": "ASC",
-          "policy": "default",
-          "query": "SELECT \"sensors_3_power\" AS \"Port 1\" FROM \"$SmartPlug\" WHERE $timeFilter",
-          "rawQuery": true,
-          "refId": "D",
-          "resultFormat": "time_series",
-          "select": [
-            [
-              {
-                "params": [
-                  "sensors_0_power"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [
-                  "Port 1"
-                ],
-                "type": "alias"
-              }
-            ]
-          ],
-          "tags": []
-        },
-        {
-          "alias": "$col",
-          "groupBy": [],
-          "measurement": "$SmartPlug",
-          "orderByTime": "ASC",
-          "policy": "default",
-          "query": "SELECT \"sensors_4_power\" AS \"Port 5\" FROM \"$SmartPlug\" WHERE $timeFilter",
-          "rawQuery": true,
-          "refId": "E",
-          "resultFormat": "time_series",
-          "select": [
-            [
-              {
-                "params": [
-                  "sensors_0_power"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [
-                  "Port 1"
-                ],
-                "type": "alias"
-              }
-            ]
-          ],
-          "tags": []
-        },
-        {
-          "alias": "$col",
-          "groupBy": [],
-          "measurement": "$SmartPlug",
-          "orderByTime": "ASC",
-          "policy": "default",
-          "query": "SELECT \"sensors_5_power\" AS \"Port 6\" FROM \"$SmartPlug\" WHERE $timeFilter",
-          "rawQuery": true,
-          "refId": "F",
-          "resultFormat": "time_series",
-          "select": [
-            [
-              {
-                "params": [
-                  "sensors_0_power"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [
-                  "Port 1"
                 ],
                 "type": "alias"
               }
@@ -1518,7 +666,7 @@
           ],
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT \"emeter_get_realtime_power\" FROM \"$SmartPlug\" WHERE $timeFilter",
+          "query": "SELECT \"emeter_get_realtime_power\" AS \"Power\" FROM /^$SmartPlug$/ WHERE $timeFilter\n",
           "rawQuery": true,
           "refId": "G",
           "resultFormat": "time_series",
@@ -1590,7 +738,7 @@
         "orientation": "auto",
         "reduceOptions": {
           "calcs": [
-            "mean"
+            "last"
           ],
           "fields": "",
           "values": false
@@ -1600,7 +748,7 @@
       "pluginVersion": "7.3.6",
       "targets": [
         {
-          "alias": "$col",
+          "alias": "",
           "groupBy": [
             {
               "params": [
@@ -1619,7 +767,7 @@
           "measurement": "exec_mfi6",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT \"sensors_0_current\" AS \"Port 1\" FROM \"$SmartPlug\" WHERE $timeFilter",
+          "query": "SELECT \n\"sensors_0_current\" AS \"Port 1 Current\", \n\"sensors_1_current\" AS \"Port 2 Current\", \n\"sensors_2_current\" AS \"Port 3 Current\"\nFROM /^$SmartPlug$/ WHERE $timeFilter",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series",
@@ -1736,7 +884,7 @@
           "tags": []
         },
         {
-          "alias": "$col",
+          "alias": "",
           "groupBy": [
             {
               "params": [
@@ -1755,553 +903,9 @@
           "measurement": "exec_mfi6",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT \"sensors_1_current\" AS \"Port 2\" FROM \"$SmartPlug\" WHERE $timeFilter",
+          "query": "SELECT \n\"sensors_3_current\" AS \"Port 4 Current\", \n\"sensors_4_current\" AS \"Port 5 Current\", \n\"sensors_5_current\" AS \"Port 6 Current\" \nFROM /^$SmartPlug$/ WHERE $timeFilter",
           "rawQuery": true,
           "refId": "B",
-          "resultFormat": "time_series",
-          "select": [
-            [
-              {
-                "params": [
-                  "sensors_0_voltage"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              },
-              {
-                "params": [
-                  "$mFi6_PORT1"
-                ],
-                "type": "alias"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "sensors_1_voltage"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              },
-              {
-                "params": [
-                  "$mFi6_PORT2"
-                ],
-                "type": "alias"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "sensors_2_voltage"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              },
-              {
-                "params": [
-                  "$mFi6_PORT3"
-                ],
-                "type": "alias"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "sensors_3_voltage"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              },
-              {
-                "params": [
-                  "$mFi6_PORT4"
-                ],
-                "type": "alias"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "sensors_4_voltage"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              },
-              {
-                "params": [
-                  "$mFi6_PORT5"
-                ],
-                "type": "alias"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "sensors_5_voltage"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              },
-              {
-                "params": [
-                  "$mFi6_PORT6"
-                ],
-                "type": "alias"
-              }
-            ]
-          ],
-          "tags": []
-        },
-        {
-          "alias": "$col",
-          "groupBy": [
-            {
-              "params": [
-                "$__interval"
-              ],
-              "type": "time"
-            },
-            {
-              "params": [
-                "null"
-              ],
-              "type": "fill"
-            }
-          ],
-          "hide": false,
-          "measurement": "exec_mfi6",
-          "orderByTime": "ASC",
-          "policy": "default",
-          "query": "SELECT \"sensors_2_current\" AS \"Port 3\" FROM \"$SmartPlug\" WHERE $timeFilter",
-          "rawQuery": true,
-          "refId": "D",
-          "resultFormat": "time_series",
-          "select": [
-            [
-              {
-                "params": [
-                  "sensors_0_voltage"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              },
-              {
-                "params": [
-                  "$mFi6_PORT1"
-                ],
-                "type": "alias"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "sensors_1_voltage"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              },
-              {
-                "params": [
-                  "$mFi6_PORT2"
-                ],
-                "type": "alias"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "sensors_2_voltage"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              },
-              {
-                "params": [
-                  "$mFi6_PORT3"
-                ],
-                "type": "alias"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "sensors_3_voltage"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              },
-              {
-                "params": [
-                  "$mFi6_PORT4"
-                ],
-                "type": "alias"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "sensors_4_voltage"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              },
-              {
-                "params": [
-                  "$mFi6_PORT5"
-                ],
-                "type": "alias"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "sensors_5_voltage"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              },
-              {
-                "params": [
-                  "$mFi6_PORT6"
-                ],
-                "type": "alias"
-              }
-            ]
-          ],
-          "tags": []
-        },
-        {
-          "alias": "$col",
-          "groupBy": [
-            {
-              "params": [
-                "$__interval"
-              ],
-              "type": "time"
-            },
-            {
-              "params": [
-                "null"
-              ],
-              "type": "fill"
-            }
-          ],
-          "hide": false,
-          "measurement": "exec_mfi6",
-          "orderByTime": "ASC",
-          "policy": "default",
-          "query": "SELECT \"sensors_3_current\" AS \"Port 4\" FROM \"$SmartPlug\" WHERE $timeFilter",
-          "rawQuery": true,
-          "refId": "E",
-          "resultFormat": "time_series",
-          "select": [
-            [
-              {
-                "params": [
-                  "sensors_0_voltage"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              },
-              {
-                "params": [
-                  "$mFi6_PORT1"
-                ],
-                "type": "alias"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "sensors_1_voltage"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              },
-              {
-                "params": [
-                  "$mFi6_PORT2"
-                ],
-                "type": "alias"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "sensors_2_voltage"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              },
-              {
-                "params": [
-                  "$mFi6_PORT3"
-                ],
-                "type": "alias"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "sensors_3_voltage"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              },
-              {
-                "params": [
-                  "$mFi6_PORT4"
-                ],
-                "type": "alias"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "sensors_4_voltage"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              },
-              {
-                "params": [
-                  "$mFi6_PORT5"
-                ],
-                "type": "alias"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "sensors_5_voltage"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              },
-              {
-                "params": [
-                  "$mFi6_PORT6"
-                ],
-                "type": "alias"
-              }
-            ]
-          ],
-          "tags": []
-        },
-        {
-          "alias": "$col",
-          "groupBy": [
-            {
-              "params": [
-                "$__interval"
-              ],
-              "type": "time"
-            },
-            {
-              "params": [
-                "null"
-              ],
-              "type": "fill"
-            }
-          ],
-          "hide": false,
-          "measurement": "exec_mfi6",
-          "orderByTime": "ASC",
-          "policy": "default",
-          "query": "SELECT \"sensors_4_current\" AS \"Port 5\" FROM \"$SmartPlug\" WHERE $timeFilter",
-          "rawQuery": true,
-          "refId": "G",
-          "resultFormat": "time_series",
-          "select": [
-            [
-              {
-                "params": [
-                  "sensors_0_voltage"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              },
-              {
-                "params": [
-                  "$mFi6_PORT1"
-                ],
-                "type": "alias"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "sensors_1_voltage"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              },
-              {
-                "params": [
-                  "$mFi6_PORT2"
-                ],
-                "type": "alias"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "sensors_2_voltage"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              },
-              {
-                "params": [
-                  "$mFi6_PORT3"
-                ],
-                "type": "alias"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "sensors_3_voltage"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              },
-              {
-                "params": [
-                  "$mFi6_PORT4"
-                ],
-                "type": "alias"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "sensors_4_voltage"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              },
-              {
-                "params": [
-                  "$mFi6_PORT5"
-                ],
-                "type": "alias"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "sensors_5_voltage"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              },
-              {
-                "params": [
-                  "$mFi6_PORT6"
-                ],
-                "type": "alias"
-              }
-            ]
-          ],
-          "tags": []
-        },
-        {
-          "alias": "$col",
-          "groupBy": [
-            {
-              "params": [
-                "$__interval"
-              ],
-              "type": "time"
-            },
-            {
-              "params": [
-                "null"
-              ],
-              "type": "fill"
-            }
-          ],
-          "hide": false,
-          "measurement": "exec_mfi6",
-          "orderByTime": "ASC",
-          "policy": "default",
-          "query": "SELECT \"sensors_5_current\" AS \"Port 6\" FROM \"$SmartPlug\" WHERE $timeFilter",
-          "rawQuery": true,
-          "refId": "C",
           "resultFormat": "time_series",
           "select": [
             [
@@ -2433,7 +1037,7 @@
           ],
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT \"emeter_get_realtime_current\" FROM \"$SmartPlug\" WHERE $timeFilter",
+          "query": "SELECT \"emeter_get_realtime_current\" AS \"Current\" FROM /^$SmartPlug$/ WHERE $timeFilter",
           "rawQuery": true,
           "refId": "F",
           "resultFormat": "time_series",
@@ -2469,6 +1073,324 @@
             "mode": "absolute",
             "steps": [
               {
+                "color": "orange",
+                "value": null
+              }
+            ]
+          },
+          "unit": "watth"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 6,
+        "x": 12,
+        "y": 16
+      },
+      "id": 22,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "sum"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "7.3.6",
+      "targets": [
+        {
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT\nmean(\"sensors_0_power\") AS \"Port 1\", \nmean(\"sensors_1_power\") AS \"Port 2\", \nmean(\"sensors_2_power\") AS \"Port 3\" \nFROM /^$SmartPlug$/  WHERE time > now() - 1h",
+          "rawQuery": true,
+          "refId": "B",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": []
+        },
+        {
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT\nmean(\"sensors_3_power\") AS \"Port 4\",\nmean(\"sensors_4_power\") AS \"Port 5\", \nmean(\"sensors_5_power\") AS \"Port 6\" \nFROM /^$SmartPlug$/  WHERE time > now() - 1h",
+          "rawQuery": true,
+          "refId": "C",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": []
+        },
+        {
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT mean(\"emeter_get_realtime_power\") as \"Power\" FROM /^$SmartPlug$/  WHERE time > now() - 1h\n",
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": []
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Power Consumption 1h",
+      "type": "stat"
+    },
+    {
+      "datasource": null,
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "orange",
+                "value": null
+              }
+            ]
+          },
+          "unit": "watth"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 6,
+        "x": 18,
+        "y": 16
+      },
+      "id": 23,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "sum"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "7.3.6",
+      "targets": [
+        {
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT\nmean(\"sensors_0_power\") AS \"Port 1\", \nmean(\"sensors_1_power\") AS \"Port 2\", \nmean(\"sensors_2_power\") AS \"Port 3\" \nFROM /^$SmartPlug$/  WHERE time > now() - 24h GROUP BY time(1h) FILL(0)",
+          "rawQuery": true,
+          "refId": "B",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": []
+        },
+        {
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT\nmean(\"sensors_3_power\") AS \"Port 4\",\nmean(\"sensors_4_power\") AS \"Port 5\", \nmean(\"sensors_5_power\") AS \"Port 6\" \nFROM /^$SmartPlug$/ WHERE time > now() - 24h GROUP BY time(1h) FILL(0)",
+          "rawQuery": true,
+          "refId": "C",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": []
+        },
+        {
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT mean(\"emeter_get_realtime_power\") as \"Power\" FROM /^$SmartPlug$/  WHERE time > now() - 24h GROUP BY time(1h) FILL(0)\n",
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": []
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Power Consumption 24h",
+      "type": "stat"
+    },
+    {
+      "datasource": null,
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
                 "color": "red",
                 "value": null
               },
@@ -2489,8 +1411,8 @@
       "gridPos": {
         "h": 8,
         "w": 12,
-        "x": 12,
-        "y": 16
+        "x": 0,
+        "y": 24
       },
       "id": 18,
       "interval": "",
@@ -2510,7 +1432,7 @@
       "pluginVersion": "7.3.6",
       "targets": [
         {
-          "alias": "$col",
+          "alias": "",
           "groupBy": [
             {
               "params": [
@@ -2529,7 +1451,7 @@
           "measurement": "exec_mfi6",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT \"sensors_0_powerfactor\" AS \"Port 1\" FROM \"$SmartPlug\" WHERE $timeFilter",
+          "query": "SELECT \n\"sensors_0_powerfactor\" AS \"Port 1 PF\", \n\"sensors_1_powerfactor\" AS \"Port 2 PF\", \n\"sensors_2_powerfactor\" AS \"Port 3 PF\"\nFROM /^$SmartPlug$/ WHERE $timeFilter",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series",
@@ -2646,7 +1568,7 @@
           "tags": []
         },
         {
-          "alias": "$col",
+          "alias": "",
           "groupBy": [
             {
               "params": [
@@ -2665,7 +1587,7 @@
           "measurement": "exec_mfi6",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT \"sensors_1_powerfactor\" AS \"Port 2\" FROM \"$SmartPlug\" WHERE $timeFilter",
+          "query": "SELECT \n\"sensors_3_powerfactor\" AS \"Port 4 PF\", \n\"sensors_4_powerfactor\" AS \"Port 5 PF\", \n\"sensors_5_powerfactor\" AS \"Port 6 PF\" \nFROM /^$SmartPlug$/ WHERE $timeFilter",
           "rawQuery": true,
           "refId": "B",
           "resultFormat": "time_series",
@@ -2782,7 +1704,6 @@
           "tags": []
         },
         {
-          "alias": "$col",
           "groupBy": [
             {
               "params": [
@@ -2797,419 +1718,9 @@
               "type": "fill"
             }
           ],
-          "hide": false,
-          "measurement": "exec_mfi6",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT \"sensors_2_powerfactor\" AS \"Port 3\" FROM \"$SmartPlug\" WHERE $timeFilter",
-          "rawQuery": true,
-          "refId": "D",
-          "resultFormat": "time_series",
-          "select": [
-            [
-              {
-                "params": [
-                  "sensors_0_voltage"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              },
-              {
-                "params": [
-                  "$mFi6_PORT1"
-                ],
-                "type": "alias"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "sensors_1_voltage"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              },
-              {
-                "params": [
-                  "$mFi6_PORT2"
-                ],
-                "type": "alias"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "sensors_2_voltage"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              },
-              {
-                "params": [
-                  "$mFi6_PORT3"
-                ],
-                "type": "alias"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "sensors_3_voltage"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              },
-              {
-                "params": [
-                  "$mFi6_PORT4"
-                ],
-                "type": "alias"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "sensors_4_voltage"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              },
-              {
-                "params": [
-                  "$mFi6_PORT5"
-                ],
-                "type": "alias"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "sensors_5_voltage"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              },
-              {
-                "params": [
-                  "$mFi6_PORT6"
-                ],
-                "type": "alias"
-              }
-            ]
-          ],
-          "tags": []
-        },
-        {
-          "alias": "$col",
-          "groupBy": [
-            {
-              "params": [
-                "$__interval"
-              ],
-              "type": "time"
-            },
-            {
-              "params": [
-                "null"
-              ],
-              "type": "fill"
-            }
-          ],
-          "hide": false,
-          "measurement": "exec_mfi6",
-          "orderByTime": "ASC",
-          "policy": "default",
-          "query": "SELECT \"sensors_3_powerfactor\" AS \"Port 4\" FROM \"$SmartPlug\" WHERE $timeFilter",
-          "rawQuery": true,
-          "refId": "E",
-          "resultFormat": "time_series",
-          "select": [
-            [
-              {
-                "params": [
-                  "sensors_0_voltage"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              },
-              {
-                "params": [
-                  "$mFi6_PORT1"
-                ],
-                "type": "alias"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "sensors_1_voltage"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              },
-              {
-                "params": [
-                  "$mFi6_PORT2"
-                ],
-                "type": "alias"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "sensors_2_voltage"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              },
-              {
-                "params": [
-                  "$mFi6_PORT3"
-                ],
-                "type": "alias"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "sensors_3_voltage"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              },
-              {
-                "params": [
-                  "$mFi6_PORT4"
-                ],
-                "type": "alias"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "sensors_4_voltage"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              },
-              {
-                "params": [
-                  "$mFi6_PORT5"
-                ],
-                "type": "alias"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "sensors_5_voltage"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              },
-              {
-                "params": [
-                  "$mFi6_PORT6"
-                ],
-                "type": "alias"
-              }
-            ]
-          ],
-          "tags": []
-        },
-        {
-          "alias": "$col",
-          "groupBy": [
-            {
-              "params": [
-                "$__interval"
-              ],
-              "type": "time"
-            },
-            {
-              "params": [
-                "null"
-              ],
-              "type": "fill"
-            }
-          ],
-          "hide": false,
-          "measurement": "exec_mfi6",
-          "orderByTime": "ASC",
-          "policy": "default",
-          "query": "SELECT \"sensors_4_powerfactor\" AS \"Port 5\" FROM \"$SmartPlug\" WHERE $timeFilter",
-          "rawQuery": true,
-          "refId": "G",
-          "resultFormat": "time_series",
-          "select": [
-            [
-              {
-                "params": [
-                  "sensors_0_voltage"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              },
-              {
-                "params": [
-                  "$mFi6_PORT1"
-                ],
-                "type": "alias"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "sensors_1_voltage"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              },
-              {
-                "params": [
-                  "$mFi6_PORT2"
-                ],
-                "type": "alias"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "sensors_2_voltage"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              },
-              {
-                "params": [
-                  "$mFi6_PORT3"
-                ],
-                "type": "alias"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "sensors_3_voltage"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              },
-              {
-                "params": [
-                  "$mFi6_PORT4"
-                ],
-                "type": "alias"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "sensors_4_voltage"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              },
-              {
-                "params": [
-                  "$mFi6_PORT5"
-                ],
-                "type": "alias"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "sensors_5_voltage"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              },
-              {
-                "params": [
-                  "$mFi6_PORT6"
-                ],
-                "type": "alias"
-              }
-            ]
-          ],
-          "tags": []
-        },
-        {
-          "alias": "$col",
-          "groupBy": [
-            {
-              "params": [
-                "$__interval"
-              ],
-              "type": "time"
-            },
-            {
-              "params": [
-                "null"
-              ],
-              "type": "fill"
-            }
-          ],
-          "hide": false,
-          "measurement": "exec_mfi6",
-          "orderByTime": "ASC",
-          "policy": "default",
-          "query": "SELECT \"sensors_5_powerfactor\" AS \"Port 6\" FROM \"$SmartPlug\" WHERE $timeFilter",
+          "query": "SELECT (emeter_get_realtime_power / (emeter_get_realtime_voltage * emeter_get_realtime_current) ) AS \"PF\" FROM /^$SmartPlug$/ WHERE $timeFilter",
           "rawQuery": true,
           "refId": "C",
           "resultFormat": "time_series",
@@ -3217,109 +1728,13 @@
             [
               {
                 "params": [
-                  "sensors_0_voltage"
+                  "value"
                 ],
                 "type": "field"
               },
               {
                 "params": [],
                 "type": "mean"
-              },
-              {
-                "params": [
-                  "$mFi6_PORT1"
-                ],
-                "type": "alias"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "sensors_1_voltage"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              },
-              {
-                "params": [
-                  "$mFi6_PORT2"
-                ],
-                "type": "alias"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "sensors_2_voltage"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              },
-              {
-                "params": [
-                  "$mFi6_PORT3"
-                ],
-                "type": "alias"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "sensors_3_voltage"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              },
-              {
-                "params": [
-                  "$mFi6_PORT4"
-                ],
-                "type": "alias"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "sensors_4_voltage"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              },
-              {
-                "params": [
-                  "$mFi6_PORT5"
-                ],
-                "type": "alias"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "sensors_5_voltage"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              },
-              {
-                "params": [
-                  "$mFi6_PORT6"
-                ],
-                "type": "alias"
               }
             ]
           ],
@@ -3330,6 +1745,324 @@
       "timeShift": null,
       "title": "Output Power Factor",
       "type": "gauge"
+    },
+    {
+      "datasource": null,
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "orange",
+                "value": null
+              }
+            ]
+          },
+          "unit": "watth"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 6,
+        "x": 12,
+        "y": 24
+      },
+      "id": 24,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "sum"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "7.3.6",
+      "targets": [
+        {
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT\nmean(\"sensors_0_power\") AS \"Port 1\", \nmean(\"sensors_1_power\") AS \"Port 2\", \nmean(\"sensors_2_power\") AS \"Port 3\" \nFROM /^$SmartPlug$/  WHERE time > now() - 30d GROUP BY time(1h) FILL(0)",
+          "rawQuery": true,
+          "refId": "B",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": []
+        },
+        {
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT\nmean(\"sensors_3_power\") AS \"Port 4\",\nmean(\"sensors_4_power\") AS \"Port 5\", \nmean(\"sensors_5_power\") AS \"Port 6\" \nFROM /^$SmartPlug$/  WHERE time > now() - 30d GROUP BY time(1h) FILL(0)",
+          "rawQuery": true,
+          "refId": "C",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": []
+        },
+        {
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT mean(\"emeter_get_realtime_power\") as \"Power\" FROM /^$SmartPlug$/  WHERE time > now() - 30d GROUP BY time(1h) FILL(0)\n",
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": []
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Power Consumption 30d",
+      "type": "stat"
+    },
+    {
+      "datasource": null,
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "orange",
+                "value": null
+              }
+            ]
+          },
+          "unit": "watth"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 6,
+        "x": 18,
+        "y": 24
+      },
+      "id": 25,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "sum"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "7.3.6",
+      "targets": [
+        {
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT\nmean(\"sensors_0_power\") AS \"Port 1\", \nmean(\"sensors_1_power\") AS \"Port 2\", \nmean(\"sensors_2_power\") AS \"Port 3\" \nFROM /^$SmartPlug$/   WHERE time > now() - 365d GROUP BY time(1h) FILL(0)",
+          "rawQuery": true,
+          "refId": "B",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": []
+        },
+        {
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT\nmean(\"sensors_3_power\") AS \"Port 4\",\nmean(\"sensors_4_power\") AS \"Port 5\", \nmean(\"sensors_5_power\") AS \"Port 6\" \nFROM /^$SmartPlug$/   WHERE time > now() - 365d GROUP BY time(1h) FILL(0)",
+          "rawQuery": true,
+          "refId": "C",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": []
+        },
+        {
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT mean(\"emeter_get_realtime_power\") as \"Power\" FROM /^$SmartPlug$/   WHERE time > now() - 365d GROUP BY time(1h) FILL(0)\n",
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": []
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Power Consumption 1y",
+      "type": "stat"
     },
     {
       "aliasColors": {},
@@ -3349,7 +2082,7 @@
         "h": 9,
         "w": 24,
         "x": 0,
-        "y": 24
+        "y": 32
       },
       "hiddenSeries": false,
       "id": 3,
@@ -3358,6 +2091,7 @@
         "alignAsTable": true,
         "avg": false,
         "current": true,
+        "hideEmpty": true,
         "max": false,
         "min": false,
         "rightSide": true,
@@ -3384,7 +2118,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "alias": "$col",
+          "alias": "",
           "groupBy": [
             {
               "params": [
@@ -3402,7 +2136,7 @@
           "measurement": "exec_mfi6",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT mean(\"sensors_0_power\") AS \"Port 1\" FROM \"$SmartPlug\" WHERE $timeFilter GROUP BY time($__interval) fill(null)",
+          "query": "SELECT \n\"sensors_0_power\" AS \"Port 1\", \n\"sensors_1_power\" AS \"Port 2\", \n\"sensors_2_power\" AS \"Port 3\",\n\"sensors_3_power\" AS \"Port 4\",\n\"sensors_4_power\" AS \"Port 5\", \n\"sensors_5_power\" AS \"Port 6\" \nFROM /^$SmartPlug$/ WHERE $timeFilter",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series",
@@ -3519,682 +2253,7 @@
           "tags": []
         },
         {
-          "alias": "$col",
-          "groupBy": [
-            {
-              "params": [
-                "$__interval"
-              ],
-              "type": "time"
-            },
-            {
-              "params": [
-                "null"
-              ],
-              "type": "fill"
-            }
-          ],
-          "measurement": "exec_mfi6",
-          "orderByTime": "ASC",
-          "policy": "default",
-          "query": "SELECT mean(\"sensors_1_power\") AS \"Port 2\" FROM \"$SmartPlug\" WHERE $timeFilter GROUP BY time($__interval) fill(null)",
-          "rawQuery": true,
-          "refId": "B",
-          "resultFormat": "time_series",
-          "select": [
-            [
-              {
-                "params": [
-                  "sensors_0_power"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              },
-              {
-                "params": [
-                  "$mFi6_PORT1"
-                ],
-                "type": "alias"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "sensors_1_power"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              },
-              {
-                "params": [
-                  "$mFi6_PORT2"
-                ],
-                "type": "alias"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "sensors_2_power"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              },
-              {
-                "params": [
-                  "$mFi6_PORT3"
-                ],
-                "type": "alias"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "sensors_3_power"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              },
-              {
-                "params": [
-                  "$mFi6_PORT4"
-                ],
-                "type": "alias"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "sensors_4_power"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              },
-              {
-                "params": [
-                  "$mFi6_PORT5"
-                ],
-                "type": "alias"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "sensors_5_power"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              },
-              {
-                "params": [
-                  "$mFi6_PORT6"
-                ],
-                "type": "alias"
-              }
-            ]
-          ],
-          "tags": []
-        },
-        {
-          "alias": "$col",
-          "groupBy": [
-            {
-              "params": [
-                "$__interval"
-              ],
-              "type": "time"
-            },
-            {
-              "params": [
-                "null"
-              ],
-              "type": "fill"
-            }
-          ],
-          "measurement": "exec_mfi6",
-          "orderByTime": "ASC",
-          "policy": "default",
-          "query": "SELECT mean(\"sensors_2_power\") AS \"Port 3\" FROM \"$SmartPlug\" WHERE $timeFilter GROUP BY time($__interval) fill(null)",
-          "rawQuery": true,
-          "refId": "C",
-          "resultFormat": "time_series",
-          "select": [
-            [
-              {
-                "params": [
-                  "sensors_0_power"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              },
-              {
-                "params": [
-                  "$mFi6_PORT1"
-                ],
-                "type": "alias"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "sensors_1_power"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              },
-              {
-                "params": [
-                  "$mFi6_PORT2"
-                ],
-                "type": "alias"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "sensors_2_power"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              },
-              {
-                "params": [
-                  "$mFi6_PORT3"
-                ],
-                "type": "alias"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "sensors_3_power"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              },
-              {
-                "params": [
-                  "$mFi6_PORT4"
-                ],
-                "type": "alias"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "sensors_4_power"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              },
-              {
-                "params": [
-                  "$mFi6_PORT5"
-                ],
-                "type": "alias"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "sensors_5_power"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              },
-              {
-                "params": [
-                  "$mFi6_PORT6"
-                ],
-                "type": "alias"
-              }
-            ]
-          ],
-          "tags": []
-        },
-        {
-          "alias": "$col",
-          "groupBy": [
-            {
-              "params": [
-                "$__interval"
-              ],
-              "type": "time"
-            },
-            {
-              "params": [
-                "null"
-              ],
-              "type": "fill"
-            }
-          ],
-          "measurement": "exec_mfi6",
-          "orderByTime": "ASC",
-          "policy": "default",
-          "query": "SELECT mean(\"sensors_3_power\") AS \"Port 4\" FROM \"$SmartPlug\" WHERE $timeFilter GROUP BY time($__interval) fill(null)",
-          "rawQuery": true,
-          "refId": "D",
-          "resultFormat": "time_series",
-          "select": [
-            [
-              {
-                "params": [
-                  "sensors_0_power"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              },
-              {
-                "params": [
-                  "$mFi6_PORT1"
-                ],
-                "type": "alias"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "sensors_1_power"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              },
-              {
-                "params": [
-                  "$mFi6_PORT2"
-                ],
-                "type": "alias"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "sensors_2_power"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              },
-              {
-                "params": [
-                  "$mFi6_PORT3"
-                ],
-                "type": "alias"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "sensors_3_power"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              },
-              {
-                "params": [
-                  "$mFi6_PORT4"
-                ],
-                "type": "alias"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "sensors_4_power"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              },
-              {
-                "params": [
-                  "$mFi6_PORT5"
-                ],
-                "type": "alias"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "sensors_5_power"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              },
-              {
-                "params": [
-                  "$mFi6_PORT6"
-                ],
-                "type": "alias"
-              }
-            ]
-          ],
-          "tags": []
-        },
-        {
-          "alias": "$col",
-          "groupBy": [
-            {
-              "params": [
-                "$__interval"
-              ],
-              "type": "time"
-            },
-            {
-              "params": [
-                "null"
-              ],
-              "type": "fill"
-            }
-          ],
-          "measurement": "exec_mfi6",
-          "orderByTime": "ASC",
-          "policy": "default",
-          "query": "SELECT mean(\"sensors_4_power\") AS \"Port 5\" FROM \"$SmartPlug\" WHERE $timeFilter GROUP BY time($__interval) fill(null)",
-          "rawQuery": true,
-          "refId": "E",
-          "resultFormat": "time_series",
-          "select": [
-            [
-              {
-                "params": [
-                  "sensors_0_power"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              },
-              {
-                "params": [
-                  "$mFi6_PORT1"
-                ],
-                "type": "alias"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "sensors_1_power"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              },
-              {
-                "params": [
-                  "$mFi6_PORT2"
-                ],
-                "type": "alias"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "sensors_2_power"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              },
-              {
-                "params": [
-                  "$mFi6_PORT3"
-                ],
-                "type": "alias"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "sensors_3_power"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              },
-              {
-                "params": [
-                  "$mFi6_PORT4"
-                ],
-                "type": "alias"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "sensors_4_power"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              },
-              {
-                "params": [
-                  "$mFi6_PORT5"
-                ],
-                "type": "alias"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "sensors_5_power"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              },
-              {
-                "params": [
-                  "$mFi6_PORT6"
-                ],
-                "type": "alias"
-              }
-            ]
-          ],
-          "tags": []
-        },
-        {
-          "alias": "$col",
-          "groupBy": [
-            {
-              "params": [
-                "$__interval"
-              ],
-              "type": "time"
-            },
-            {
-              "params": [
-                "null"
-              ],
-              "type": "fill"
-            }
-          ],
-          "measurement": "exec_mfi6",
-          "orderByTime": "ASC",
-          "policy": "default",
-          "query": "SELECT mean(\"sensors_5_power\") AS \"Port 6\" FROM \"$SmartPlug\" WHERE $timeFilter GROUP BY time($__interval) fill(null)",
-          "rawQuery": true,
-          "refId": "F",
-          "resultFormat": "time_series",
-          "select": [
-            [
-              {
-                "params": [
-                  "sensors_0_power"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              },
-              {
-                "params": [
-                  "$mFi6_PORT1"
-                ],
-                "type": "alias"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "sensors_1_power"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              },
-              {
-                "params": [
-                  "$mFi6_PORT2"
-                ],
-                "type": "alias"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "sensors_2_power"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              },
-              {
-                "params": [
-                  "$mFi6_PORT3"
-                ],
-                "type": "alias"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "sensors_3_power"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              },
-              {
-                "params": [
-                  "$mFi6_PORT4"
-                ],
-                "type": "alias"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "sensors_4_power"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              },
-              {
-                "params": [
-                  "$mFi6_PORT5"
-                ],
-                "type": "alias"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "sensors_5_power"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              },
-              {
-                "params": [
-                  "$mFi6_PORT6"
-                ],
-                "type": "alias"
-              }
-            ]
-          ],
-          "tags": []
-        },
-        {
-          "alias": "$SmartPlug",
+          "alias": "",
           "groupBy": [
             {
               "params": [
@@ -4211,7 +2270,7 @@
           ],
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT mean(\"emeter_get_realtime_power\") FROM \"$SmartPlug\" WHERE $timeFilter GROUP BY time($__interval) fill(null)",
+          "query": "SELECT mean(\"emeter_get_realtime_power\")  AS \"Port\" FROM /^$SmartPlug$/ WHERE $timeFilter GROUP BY time($__interval) fill(null)",
           "rawQuery": true,
           "refId": "G",
           "resultFormat": "time_series",
@@ -4253,7 +2312,7 @@
       "yaxes": [
         {
           "decimals": null,
-          "format": "watth",
+          "format": "watt",
           "label": "",
           "logBase": 1,
           "max": null,
@@ -4287,13 +2346,13 @@
       "fieldConfig": {
         "defaults": {
           "custom": {},
-          "unit": "watth"
+          "unit": "watt"
         },
         "overrides": [
           {
             "matcher": {
-              "id": "byName",
-              "options": "Cost"
+              "id": "byRegexp",
+              "options": "/Cost/"
             },
             "properties": [
               {
@@ -4310,7 +2369,7 @@
         "h": 9,
         "w": 24,
         "x": 0,
-        "y": 33
+        "y": 41
       },
       "hiddenSeries": false,
       "id": 20,
@@ -4318,8 +2377,11 @@
         "alignAsTable": true,
         "avg": true,
         "current": true,
+        "hideEmpty": true,
+        "hideZero": true,
         "max": true,
         "min": true,
+        "rightSide": true,
         "show": true,
         "total": true,
         "values": true
@@ -4337,13 +2399,13 @@
       "renderer": "flot",
       "seriesOverrides": [
         {
-          "alias": "Cost",
+          "alias": "/Cost/",
           "bars": false,
           "lines": true,
           "yaxis": 2
         },
         {
-          "alias": "Power",
+          "alias": "/Power/",
           "yaxis": 1
         }
       ],
@@ -4352,7 +2414,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "alias": "Power",
+          "alias": "",
           "groupBy": [
             {
               "params": [
@@ -4369,7 +2431,7 @@
           ],
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT mean(\"emeter_get_realtime_power\") as \"Power\" FROM \"$SmartPlug\" WHERE $timeFilter GROUP BY time(1h) FILL(0)\n",
+          "query": "SELECT mean(\"emeter_get_realtime_power\") as \"Power\" FROM  /^$SmartPlug$/ WHERE $timeFilter GROUP BY time(1h) FILL(0)\n",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series",
@@ -4390,6 +2452,7 @@
           "tags": []
         },
         {
+          "alias": "",
           "groupBy": [
             {
               "params": [
@@ -4406,9 +2469,85 @@
           ],
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT (mean(\"emeter_get_realtime_power\") / 1000 * $cost ) as \"apollo_power\" FROM \"$SmartPlug\" WHERE $timeFilter GROUP BY time(1h) FILL(0)",
+          "query": "SELECT (mean(\"emeter_get_realtime_power\") / 1000 * $cost ) as \"Cost\" FROM  /^$SmartPlug$/ WHERE $timeFilter GROUP BY time(1h) FILL(0)",
           "rawQuery": true,
           "refId": "B",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": []
+        },
+        {
+          "alias": "",
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT mean(\"sensors_0_power\") AS \"Power.Port 1\",mean(\"sensors_1_power\") AS \"Power.Port 2\",mean(\"sensors_2_power\") AS \"Power.Port 3\",mean(\"sensors_3_power\") AS \"Power.Port 4\",mean(\"sensors_4_power\") AS \"Power.Port 5\",mean(\"sensors_5_power\") AS \"Power.Port 6\"  FROM  /^$SmartPlug$/ WHERE $timeFilter GROUP BY time(1h) FILL(0)",
+          "rawQuery": true,
+          "refId": "C",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": []
+        },
+        {
+          "alias": "",
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT \n(mean(\"sensors_0_power\") / 1000 * $cost ) as \"Cost Port 1\",\n(mean(\"sensors_1_power\") / 1000 * $cost ) as \"Cost Port 2\",\n(mean(\"sensors_2_power\") / 1000 * $cost ) as \"Cost Port 3\",\n(mean(\"sensors_3_power\") / 1000 * $cost ) as \"Cost Port 4\",\n(mean(\"sensors_4_power\") / 1000 * $cost ) as \"Cost Port 5\",\n(mean(\"sensors_5_power\") / 1000 * $cost ) as \"Cost Port 6\"\nFROM  /^$SmartPlug$/ WHERE $timeFilter GROUP BY time(1h) FILL(0)",
+          "rawQuery": true,
+          "refId": "D",
           "resultFormat": "time_series",
           "select": [
             [
@@ -4448,7 +2587,7 @@
       "yaxes": [
         {
           "decimals": null,
-          "format": "watth",
+          "format": "watt",
           "label": "Power Draw",
           "logBase": 1,
           "max": null,
@@ -4483,209 +2622,23 @@
   "templating": {
     "list": [
       {
-        "current": {
-          "text": "PC",
-          "value": "PC"
-        },
-        "error": null,
-        "hide": 2,
-        "label": null,
-        "name": "mFi6_PORT1",
-        "options": [
-          {
-            "text": "PC",
-            "value": "PC"
-          }
-        ],
-        "query": "PC",
-        "skipUrlSync": false,
-        "type": "constant"
-      },
-      {
-        "current": {
-          "text": "AP34",
-          "value": "AP34"
-        },
-        "error": null,
-        "hide": 2,
-        "label": null,
-        "name": "mFi6_PORT2",
-        "options": [
-          {
-            "text": "AP34",
-            "value": "AP34"
-          }
-        ],
-        "query": "AP34",
-        "skipUrlSync": false,
-        "type": "constant"
-      },
-      {
-        "current": {
-          "text": "DELL",
-          "value": "DELL"
-        },
-        "error": null,
-        "hide": 2,
-        "label": null,
-        "name": "mFi6_PORT3",
-        "options": [
-          {
-            "text": "DELL",
-            "value": "DELL"
-          }
-        ],
-        "query": "DELL",
-        "skipUrlSync": false,
-        "type": "constant"
-      },
-      {
-        "current": {
-          "text": "LIGHT",
-          "value": "LIGHT"
-        },
-        "error": null,
-        "hide": 2,
-        "label": null,
-        "name": "mFi6_PORT4",
-        "options": [
-          {
-            "text": "LIGHT",
-            "value": "LIGHT"
-          }
-        ],
-        "query": "LIGHT",
-        "skipUrlSync": false,
-        "type": "constant"
-      },
-      {
-        "current": {
-          "text": "PORT5",
-          "value": "PORT5"
-        },
-        "error": null,
-        "hide": 2,
-        "label": null,
-        "name": "mFi6_PORT5",
-        "options": [
-          {
-            "text": "PORT5",
-            "value": "PORT5"
-          }
-        ],
-        "query": "PORT5",
-        "skipUrlSync": false,
-        "type": "constant"
-      },
-      {
-        "current": {
-          "text": "OTHER",
-          "value": "OTHER"
-        },
-        "error": null,
-        "hide": 2,
-        "label": null,
-        "name": "mFi6_PORT6",
-        "options": [
-          {
-            "text": "OTHER",
-            "value": "OTHER"
-          }
-        ],
-        "query": "OTHER",
-        "skipUrlSync": false,
-        "type": "constant"
-      },
-      {
-        "current": {
-          "text": "Soyuz",
-          "value": "Soyuz"
-        },
-        "error": null,
-        "hide": 2,
-        "label": null,
-        "name": "mFi3_PORT1",
-        "options": [
-          {
-            "text": "Soyuz",
-            "value": "Soyuz"
-          }
-        ],
-        "query": "Soyuz",
-        "skipUrlSync": false,
-        "type": "constant"
-      },
-      {
-        "current": {
-          "text": "Rover",
-          "value": "Rover"
-        },
-        "error": null,
-        "hide": 2,
-        "label": null,
-        "name": "mFi3_PORT2",
-        "options": [
-          {
-            "text": "Rover",
-            "value": "Rover"
-          }
-        ],
-        "query": "Rover",
-        "skipUrlSync": false,
-        "type": "constant"
-      },
-      {
-        "current": {
-          "text": "Komp",
-          "value": "Komp"
-        },
-        "error": null,
-        "hide": 2,
-        "label": null,
-        "name": "mFi3_PORT3",
-        "options": [
-          {
-            "text": "Komp",
-            "value": "Komp"
-          }
-        ],
-        "query": "Komp",
-        "skipUrlSync": false,
-        "type": "constant"
-      },
-      {
-        "current": {
-          "text": "0.9",
-          "value": "0.9"
-        },
-        "error": null,
-        "hide": 2,
-        "label": null,
-        "name": "kWhPrice",
-        "options": [
-          {
-            "text": "0.9",
-            "value": "0.9"
-          }
-        ],
-        "query": "0.9",
-        "skipUrlSync": false,
-        "type": "constant"
-      },
-      {
         "allValue": null,
         "current": {
           "selected": false,
-          "text": "exec_hs110",
-          "value": "exec_hs110"
+          "text": [
+            "exec_mFi-Radiona"
+          ],
+          "value": [
+            "exec_mFi-Radiona"
+          ]
         },
         "datasource": "InfluxDB",
         "definition": "",
         "error": null,
         "hide": 0,
-        "includeAll": false,
+        "includeAll": true,
         "label": "Smart Plug",
-        "multi": false,
+        "multi": true,
         "name": "SmartPlug",
         "options": [],
         "query": "SHOW MEASUREMENTS ON \"telegraf\"",
@@ -4698,11 +2651,32 @@
         "tagsQuery": "",
         "type": "query",
         "useTags": false
+      },
+      {
+        "current": {
+          "selected": true,
+          "text": "0.9",
+          "value": "0.9"
+        },
+        "error": null,
+        "hide": 0,
+        "label": "Cost per kWh",
+        "name": "cost",
+        "options": [
+          {
+            "selected": true,
+            "text": "0.9",
+            "value": "0.9"
+          }
+        ],
+        "query": "0.9",
+        "skipUrlSync": false,
+        "type": "textbox"
       }
     ]
   },
   "time": {
-    "from": "now-6h",
+    "from": "now-5m",
     "to": "now"
   },
   "timepicker": {
@@ -4732,7 +2706,7 @@
     ]
   },
   "timezone": "",
-  "title": "Ubiquiti mFi mPower",
+  "title": "mFi mPower & TP-Link HS110",
   "uid": "AyZlZpGZz",
-  "version": 13
+  "version": 31
 }
