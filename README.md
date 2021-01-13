@@ -4,7 +4,7 @@ Ubiquity mPower mFi Smart Plug Monitor and Controller.
 
 ## About
 
-The [tp-link Wi-Fi Smart Plug model HS100](http://www.tp-link.us/products/details/HS100.html) and [tp-link Wi-Fi Smart Plug model HS110](https://www.kasasmart.com/us/products/smart-plugs/kasa-smart-plug-energy-monitoring-hs110) are an embedded Linux computer with a Wifi chip, a 110/220 V AC relay with a 15 A current limit, and a grounded electrical socket. You pair with it by establishing an ad-hoc network between the plug and a smartphone (also called Wi-Fi direct). After giving your router's SSID and access information, the plug connects to it and you can control the plug with the app provided by tp-link, called Kasa. One downside of using Kasa is that it's really not much more than a wall-switch in an app, though it does have pretty rich timer features which are nice. But you can't do things like turn the light on or off in response to events on the internet. Tp-link does provide a network control mode, but you have to pass control of your plug over to them, which isn't particularly great if you endeavor to remain the master of your own domain, haha only serious.
+This is a simple script that uses curl commands for monitoring and controlling Ubiquity mPower mFi Smart Plugs. It is also compatible with Telegraf for injection into InfluxDB and monitoring with Grafana.
 
 
 ## Features
