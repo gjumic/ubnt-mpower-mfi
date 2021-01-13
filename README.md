@@ -138,4 +138,4 @@ Use Grafana mFi mPower & TP-Link HS110.json file and import it into your Grafana
 This is the end result:
 [![](https://github.com/gjumic/ubnt-mpower-mfi/raw/main/screenshots/screenshot1.png)](https://github.com/gjumic/ubnt-mpower-mfi/raw/main/screenshots/screenshot1.png)
 [![](https://github.com/gjumic/ubnt-mpower-mfi/raw/main/screenshots/screenshot2.png)](https://github.com/gjumic/ubnt-mpower-mfi/raw/main/screenshots/screenshot2.png)
-[![](https://github.com/gjumic/ubnt-mpower-mfi/raw/main/screenshots/screenshot2.png)](https://github.com/gjumic/ubnt-mpower-mfi/raw/main/screenshots/screenshot3.png)
+[![](https://github.com/gjumic/ubnt-mpower-mfi/raw/main/screenshots/screenshot3.png)](https://github.com/gjumic/ubnt-mpower-mfi/raw/main/screenshots/screenshot3.png)
