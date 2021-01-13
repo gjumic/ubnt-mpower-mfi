@@ -1,5 +1,7 @@
 #!/bin/bash
 
+#Number of relay in smart plug
+PLUGS_COUNT=3
 # Do not change this
 SESSIONID="01234567890123456789012345678901"
 
@@ -38,6 +40,16 @@ done
 #Manual shift to the next flag.
 shift $(($OPTIND - 1))
 
+mfi_login() {
+    #Login the the device
+    curl -s -X POST -d "username=$MPOWER_USERNAME&password=$MPOWER_PASSWORD" -b "AIROS_SESSIONID=$SESSIONID" "http://$MPOWER_IP/login.cgi"	
+}
+
+mfi_logout() {
+    #Logout from the device
+    curl -b "AIROS_SESSIONID=$SESSIONID" "http://$MPOWER_IP/logout.cgi"
+}
+
 if ping -c 1 $MPOWER_IP &> /dev/null; then
     [[ -z "$MPOWER_USERNAME" ]] && { echo "Username not provided, exiting..."; usage; }
     [[ -z "$MPOWER_PASSWORD" ]] && { echo "Password not provided, exiting..."; usage; }
@@ -45,38 +57,41 @@ if ping -c 1 $MPOWER_IP &> /dev/null; then
     [[ -z "$COMMAND" ]] && { echo "Command not provided, exiting..."; usage; }
     [[ X$COMMAND == "Xon" || X$COMMAND == "Xoff" || X$COMMAND == "Xrestart" ]] && [[ -z $RELAY ]] && { echo "Command '$COMMAND' needs -r parameter, exiting..."; usage; }
     
-    #Login the the device
-    curl -s -X POST -d "username=$MPOWER_USERNAME&password=$MPOWER_PASSWORD" -b "AIROS_SESSIONID=$SESSIONID" "http://$MPOWER_IP/login.cgi"
+
+    
     
     if [ X"$COMMAND" == "Xemeter" ]; then
-        
-        data=$(curl -b "AIROS_SESSIONID=$SESSIONID" -s "http://$MPOWER_IP/sensors")
+        mfi_login
+        data=$(curl -b "AIROS_SESSIONID=$SESSIONID" -s "http://$MPOWER_IP/sensors" | python -m json.tool)
     	echo "$data"
+		mfi_logout
     fi
     
     # Turn on
-    [[ X"$COMMAND" == "Xon" ]] && { curl --silent -X PUT -d label=komp -b "AIROS_SESSIONID=$SESSIONID" "$MPOWER_IP/sensors/$RELAY" > /dev/null; }
+    [[ X"$COMMAND" == "Xon" ]] && { mfi_login; curl --silent -X PUT -d label=komp -b "AIROS_SESSIONID=$SESSIONID" "$MPOWER_IP/sensors/$RELAY" > /dev/null; mfi_logout; }
     #Turn off
-    [[ X"$COMMAND" == "Xoff" ]] && { curl --silent -X PUT -d output=0 -b "AIROS_SESSIONID=$SESSIONID" "$MPOWER_IP/sensors/$RELAY" > /dev/null; }
+    [[ X"$COMMAND" == "Xoff" ]] && { mfi_login; curl --silent -X PUT -d output=0 -b "AIROS_SESSIONID=$SESSIONID" "$MPOWER_IP/sensors/$RELAY" > /dev/null; mfi_logout; }
     
     #Restart port/relay
-    if [ X"$COMMAND" == "Xrestart" ]; then 
+    if [ X"$COMMAND" == "Xrestart" ]; then
+        mfi_login
         curl --silent -X PUT -d output=0 -b "AIROS_SESSIONID=$SESSIONID" "$MPOWER_IP/sensors/$RELAY" > /dev/null
-    	sleep 5
+    	sleep 3
     	curl --silent -X PUT -d output=1 -b "AIROS_SESSIONID=$SESSIONID" "$MPOWER_IP/sensors/$RELAY" > /dev/null
+        mfi_logout
     fi
     
     #Restart all ports/relays
     if [ X"$COMMAND" == "Xrestart-all" ]; then
-        for i in {1..6}; do
+        for ((i = 1 ; i <= $PLUGS_COUNT ; i++)); do
+            mfi_login
             curl --silent -X PUT -d output=0 -b "AIROS_SESSIONID=$SESSIONID" "$MPOWER_IP/sensors/$i" > /dev/null
-    		sleep 5
+    		sleep 3
     		curl --silent -X PUT -d output=1 -b "AIROS_SESSIONID=$SESSIONID" "$MPOWER_IP/sensors/$i" > /dev/null
+            mfi_logout
         done
     fi
-    
-    #Logout from the device
-    curl -b "AIROS_SESSIONID=$SESSIONID" "http://$MPOWER_IP/logout.cgi"
+   
 else
     echo "Could not contact mFi at $MPOWER_IP"
 	exit 1
