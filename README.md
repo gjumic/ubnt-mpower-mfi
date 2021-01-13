@@ -1,10 +1,10 @@
 
-Ubiquity mPower mFi Smart Plug Monitor and Controller.
+Ubiquiti mPower mFi Smart Plug Monitor and Controller.
 ============
 
 ## About
 
-This is a simple script that uses curl commands for monitoring and controlling Ubiquity mPower mFi Smart Plugs. It is also compatible with Telegraf for injection into InfluxDB and monitoring with Grafana.
+This is a simple script that uses curl commands for monitoring and controlling Ubiquiti mPower mFi Smart Plugs. It is also compatible with Telegraf for injection into InfluxDB and monitoring with Grafana.
 
 
 ## Features
