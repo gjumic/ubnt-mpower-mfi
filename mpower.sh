@@ -38,41 +38,46 @@ done
 #Manual shift to the next flag.
 shift $(($OPTIND - 1))
 
-[[ -z "$MPOWER_USERNAME" ]] && { echo "Username not provided, exiting..."; usage; }
-[[ -z "$MPOWER_PASSWORD" ]] && { echo "Password not provided, exiting..."; usage; }
-[[ -z "$MPOWER_IP" ]] && { echo "Ip Address not provided, exiting..."; usage; }
-[[ -z "$COMMAND" ]] && { echo "Command not provided, exiting..."; usage; }
-[[ X$COMMAND == "Xon" || X$COMMAND == "Xoff" || X$COMMAND == "Xrestart" ]] && [[ -z $RELAY ]] && { echo "Command '$COMMAND' needs -r parameter, exiting..."; usage; }
-
-#Login the the device
-curl -s -X POST -d "username=$MPOWER_USERNAME&password=$MPOWER_PASSWORD" -b "AIROS_SESSIONID=$SESSIONID" "http://$MPOWER_IP/login.cgi"
-
-if [ X"$COMMAND" == "Xemeter" ]; then
+if ping -c 3 $MPOWER_IP &> /dev/null; then
+    [[ -z "$MPOWER_USERNAME" ]] && { echo "Username not provided, exiting..."; usage; }
+    [[ -z "$MPOWER_PASSWORD" ]] && { echo "Password not provided, exiting..."; usage; }
+    [[ -z "$MPOWER_IP" ]] && { echo "Ip Address not provided, exiting..."; usage; }
+    [[ -z "$COMMAND" ]] && { echo "Command not provided, exiting..."; usage; }
+    [[ X$COMMAND == "Xon" || X$COMMAND == "Xoff" || X$COMMAND == "Xrestart" ]] && [[ -z $RELAY ]] && { echo "Command '$COMMAND' needs -r parameter, exiting..."; usage; }
     
-    data=$(curl -b "AIROS_SESSIONID=$SESSIONID" -s "http://$MPOWER_IP/sensors")
-	echo "$data"
+    #Login the the device
+    curl -s -X POST -d "username=$MPOWER_USERNAME&password=$MPOWER_PASSWORD" -b "AIROS_SESSIONID=$SESSIONID" "http://$MPOWER_IP/login.cgi"
+    
+    if [ X"$COMMAND" == "Xemeter" ]; then
+        
+        data=$(curl -b "AIROS_SESSIONID=$SESSIONID" -s "http://$MPOWER_IP/sensors")
+    	echo "$data"
+    fi
+    
+    # Turn on
+    [[ X"$COMMAND" == "Xon" ]] && { curl --silent -X PUT -d label=komp -b "AIROS_SESSIONID=$SESSIONID" "$MPOWER_IP/sensors/$RELAY" > /dev/null; }
+    #Turn off
+    [[ X"$COMMAND" == "Xoff" ]] && { curl --silent -X PUT -d output=0 -b "AIROS_SESSIONID=$SESSIONID" "$MPOWER_IP/sensors/$RELAY" > /dev/null; }
+    
+    #Restart port/relay
+    if [ X"$COMMAND" == "Xrestart" ]; then 
+        curl --silent -X PUT -d output=0 -b "AIROS_SESSIONID=$SESSIONID" "$MPOWER_IP/sensors/$RELAY" > /dev/null
+    	sleep 5
+    	curl --silent -X PUT -d output=1 -b "AIROS_SESSIONID=$SESSIONID" "$MPOWER_IP/sensors/$RELAY" > /dev/null
+    fi
+    
+    #Restart all ports/relays
+    if [ X"$COMMAND" == "Xrestart-all" ]; then
+        for i in {1..6}; do
+            curl --silent -X PUT -d output=0 -b "AIROS_SESSIONID=$SESSIONID" "$MPOWER_IP/sensors/$i" > /dev/null
+    		sleep 5
+    		curl --silent -X PUT -d output=1 -b "AIROS_SESSIONID=$SESSIONID" "$MPOWER_IP/sensors/$i" > /dev/null
+        done
+    fi
+    
+    #Logout from the device
+    curl -b "AIROS_SESSIONID=$SESSIONID" "http://$MPOWER_IP/logout.cgi"
+else
+    echo "Could not contact mFi at $MPOWER_IP"
+	exit 1
 fi
-
-# Turn on
-[[ X"$COMMAND" == "Xon" ]] && { curl --silent -X PUT -d label=komp -b "AIROS_SESSIONID=$SESSIONID" "$MPOWER_IP/sensors/$RELAY" > /dev/null; }
-#Turn off
-[[ X"$COMMAND" == "Xoff" ]] && { curl --silent -X PUT -d output=0 -b "AIROS_SESSIONID=$SESSIONID" "$MPOWER_IP/sensors/$RELAY" > /dev/null; }
-
-#Restart port/relay
-if [ X"$COMMAND" == "Xrestart" ]; then 
-    curl --silent -X PUT -d output=0 -b "AIROS_SESSIONID=$SESSIONID" "$MPOWER_IP/sensors/$RELAY" > /dev/null
-	sleep 5
-	curl --silent -X PUT -d output=1 -b "AIROS_SESSIONID=$SESSIONID" "$MPOWER_IP/sensors/$RELAY" > /dev/null
-fi
-
-#Restart all ports/relays
-if [ X"$COMMAND" == "Xrestart-all" ]; then
-    for i in {1..6}; do
-        curl --silent -X PUT -d output=0 -b "AIROS_SESSIONID=$SESSIONID" "$MPOWER_IP/sensors/$i" > /dev/null
-		sleep 5
-		curl --silent -X PUT -d output=1 -b "AIROS_SESSIONID=$SESSIONID" "$MPOWER_IP/sensors/$i" > /dev/null
-    done
-fi
-
-#Logout from the device
-curl -b "AIROS_SESSIONID=$SESSIONID" "http://$MPOWER_IP/logout.cgi"
