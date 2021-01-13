@@ -38,7 +38,7 @@ done
 #Manual shift to the next flag.
 shift $(($OPTIND - 1))
 
-if ping -c 3 $MPOWER_IP &> /dev/null; then
+if ping -c 1 $MPOWER_IP &> /dev/null; then
     [[ -z "$MPOWER_USERNAME" ]] && { echo "Username not provided, exiting..."; usage; }
     [[ -z "$MPOWER_PASSWORD" ]] && { echo "Password not provided, exiting..."; usage; }
     [[ -z "$MPOWER_IP" ]] && { echo "Ip Address not provided, exiting..."; usage; }
