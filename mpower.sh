@@ -68,7 +68,7 @@ if ping -c 1 $MPOWER_IP &> /dev/null; then
     fi
     
     # Turn on
-    [[ X"$COMMAND" == "Xon" ]] && { mfi_login; curl --silent -X PUT -d label=komp -b "AIROS_SESSIONID=$SESSIONID" "$MPOWER_IP/sensors/$RELAY" > /dev/null; mfi_logout; }
+    [[ X"$COMMAND" == "Xon" ]] && { mfi_login; curl --silent -X PUT -d output=1 -b "AIROS_SESSIONID=$SESSIONID" "$MPOWER_IP/sensors/$RELAY" > /dev/null; mfi_logout; }
     #Turn off
     [[ X"$COMMAND" == "Xoff" ]] && { mfi_login; curl --silent -X PUT -d output=0 -b "AIROS_SESSIONID=$SESSIONID" "$MPOWER_IP/sensors/$RELAY" > /dev/null; mfi_logout; }
     
