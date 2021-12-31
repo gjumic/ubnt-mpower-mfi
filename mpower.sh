@@ -51,6 +51,8 @@ mfi_logout() {
 }
 
 if ping -c 1 $MPOWER_IP &> /dev/null; then
+    COMMANDS_ARRAY=("on off restart restart-all emeter")
+	[[ ! " ${COMMANDS_ARRAY[@]} " =~ " ${COMMAND} " ]] && { echo "Command not recognized, exiting..."; usage; }
     [[ -z "$MPOWER_USERNAME" ]] && { echo "Username not provided, exiting..."; usage; }
     [[ -z "$MPOWER_PASSWORD" ]] && { echo "Password not provided, exiting..."; usage; }
     [[ -z "$MPOWER_IP" ]] && { echo "Ip Address not provided, exiting..."; usage; }
@@ -64,7 +66,7 @@ if ping -c 1 $MPOWER_IP &> /dev/null; then
         mfi_login
         data=$(curl -b "AIROS_SESSIONID=$SESSIONID" -s "http://$MPOWER_IP/sensors" | python -m json.tool)
     	echo "$data"
-		mfi_logout
+#		mfi_logout
     fi
     
     # Turn on
