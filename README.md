@@ -131,6 +131,7 @@ name_override = "mFi-HomeOffice"
 # Do not change this.
 data_format = "json"
 
+
 ```
 If you have multiple smart plugs, just append same snippet again with different ip address and name_override variable.
 Use Grafana mFi mPower & TP-Link HS110.json file and import it into your Grafana.
